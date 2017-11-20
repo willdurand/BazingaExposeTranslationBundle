@@ -76,6 +76,12 @@ class DumpCommand extends Command
                 null,
                 InputOption::VALUE_NONE,
                 'If set, all domains will be merged into a single file per language'
+            )
+            ->addOption(
+                'merge-fallback',
+                null,
+                InputOption::VALUE_NONE,
+                'If set, fallback translations will be merged into files which are missing translations - Currently, working only with --merge-domains option'
             );
     }
 
@@ -96,7 +102,8 @@ class DumpCommand extends Command
     {
         $formats = $input->getOption('format');
         $merge = (object) array(
-            'domains' => $input->getOption('merge-domains')
+            'domains' => $input->getOption('merge-domains'),
+            'fallback' => $input->getOption('merge-fallback'),
         );
 
         if (!is_dir($dir = dirname($this->targetPath))) {
