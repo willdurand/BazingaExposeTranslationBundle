@@ -41,6 +41,14 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')
                     ->end()
                 ->end()
+                ->arrayNode('extractor')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('extensions')->defaultValue(array('js', 'jsx', 'ts'))->end()
+                            ->scalarNode('sequence')->defaultValue('\.trans(?:Choice)?\(')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
